@@ -151,3 +151,54 @@
 
 // 	geoPosition = 'Geolocation is not supported by this browser.';
 // }
+
+// task 13
+
+function createBlock(blockName) {
+	const block = document.createElement('div');
+	block.id = blockName;
+	block.contentEditable = true;
+	block.style.width = '150px';
+	block.style.height = '160px';
+	block.style.background = 'green';
+	block.style['margin-bottom'] = '10px';
+	block.onkeypress = () => {
+		// localStorage.setItem(blockName, block.textContent);
+		// sessionStorage.setItem(blockName, block.textContent);
+
+
+	};
+	document.body.appendChild(block);
+	return block;
+}
+
+function setCookie(cname, cvalue, exdays) {
+	const d = new Date();
+	d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+	const expires = 'expires=' + d.toUTCString();
+	document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+}
+
+// setCookie("fffff", 33, 1);
+
+document.cookie = "name=oeschger; ";
+document.cookie = "favorite_food=tripe";
+console.log(document.cookie)
+
+
+const block1 = createBlock('block1');
+const block2 = createBlock('block2');
+const block3 = createBlock('block3');
+
+window.onload = () => {
+	// block1.textContent = localStorage.getItem("block1");
+	// block2.textContent = localStorage.getItem("block2");
+	// block3.textContent = localStorage.getItem("block3");
+
+	// block1.textContent = sessionStorage.getItem("block1");
+	// block2.textContent = sessionStorage.getItem("block2");
+	// block3.textContent = sessionStorage.getItem("block3");
+
+
+
+};
