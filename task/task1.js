@@ -152,53 +152,83 @@
 // 	geoPosition = 'Geolocation is not supported by this browser.';
 // }
 
-// task 13
+// // task 13
+// function createBlock(blockName, onKeyUpFunc) {
+// 	const block = document.createElement('div');
+// 	block.id = blockName;
+// 	block.contentEditable = true;
+// 	block.style.width = '150px';
+// 	block.style.height = '100px';
+// 	block.style.background = 'green';
+// 	block.style['margin-bottom'] = '10px';
+// 	block.onkeyup = onKeyUpFunc;
+// 	document.body.appendChild(block);
+// 	return block;
+// }
 
-function createBlock(blockName) {
-	const block = document.createElement('div');
-	block.id = blockName;
-	block.contentEditable = true;
-	block.style.width = '150px';
-	block.style.height = '160px';
-	block.style.background = 'green';
-	block.style['margin-bottom'] = '10px';
-	block.onkeypress = () => {
-		// localStorage.setItem(blockName, block.textContent);
-		// sessionStorage.setItem(blockName, block.textContent);
+// function setCookie(cname, cvalue, minutesCount) {
+// 	const d = new Date();
+// 	d.setTime(d.getTime() + minutesCount * 60 * 1000);
+// 	const expires = 'expires=' + d.toUTCString();
+// 	document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+// }
 
+// const block1 = createBlock('block1', () => {
+// 	localStorage.setItem('block1', block1.textContent);
+// });
 
-	};
-	document.body.appendChild(block);
-	return block;
-}
+// const block2 = createBlock('block2', () => {
+// 	setCookie('block2', block2.textContent, 15);
+// });
 
-function setCookie(cname, cvalue, exdays) {
-	const d = new Date();
-	d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-	const expires = 'expires=' + d.toUTCString();
-	document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
-}
+// const block3 = createBlock('block3', () => {
+// 	sessionStorage.setItem('block3', block3.textContent);
+// });
 
-// setCookie("fffff", 33, 1);
+// window.onload = () => {
+// 	block1.textContent = localStorage.getItem('block1');
+// 	block3.textContent = sessionStorage.getItem('block3');
 
-document.cookie = "name=oeschger; ";
-document.cookie = "favorite_food=tripe";
-console.log(document.cookie)
+// 	const cookieValue = document.cookie
+// 	.split('; ')
+// 	.find(row => row.startsWith('block2='))
+// 	.split('=')[1];
+// 	block2.textContent = cookieValue;
+// };
 
+// // task 14
+// const scrollToTopBtn = document.createElement('button');
+// scrollToTopBtn.innerText = 'go up';
+// scrollToTopBtn.style.position = 'fixed';
+// scrollToTopBtn.style.display = 'none';
+// scrollToTopBtn.style.bottom = '20px';
+// scrollToTopBtn.style.right = '30px';
+// scrollToTopBtn.style['z-index'] = 99;
+// scrollToTopBtn.style['background-color'] = 'white';
+// scrollToTopBtn.style.cursor = 'pointer';
+// scrollToTopBtn.onclick = () => {
+// 	scrollToTop();
+// };
+// document.body.appendChild(scrollToTopBtn);
 
-const block1 = createBlock('block1');
-const block2 = createBlock('block2');
-const block3 = createBlock('block3');
+// const scrollToTop = () => {
+// 	const c = document.documentElement.scrollTop || document.body.scrollTop;
+// 	if (c > 0) {
+// 		window.requestAnimationFrame(scrollToTop);
+// 		window.scrollTo(0, c - c / 8);
+// 	}
+// };
 
-window.onload = () => {
-	// block1.textContent = localStorage.getItem("block1");
-	// block2.textContent = localStorage.getItem("block2");
-	// block3.textContent = localStorage.getItem("block3");
+// window.onscroll = function () {
+// 	showScrollButton();
+// };
 
-	// block1.textContent = sessionStorage.getItem("block1");
-	// block2.textContent = sessionStorage.getItem("block2");
-	// block3.textContent = sessionStorage.getItem("block3");
+// function showScrollButton() {
+// 	if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+// 		scrollToTopBtn.style.display = 'block';
+// 	} else {
+// 		scrollToTopBtn.style.display = 'none';
+// 	}
+// }
 
-
-
-};
+//task 15
