@@ -61,6 +61,8 @@ div.onclick = () => {
 };
 
 // task 6
+const container = document.createElement('div');
+document.body.appendChild(container);
 const button = document.createElement('button');
 button.style['margin-top'] = '30px';
 button.innerHTML = 'focus';
@@ -70,14 +72,17 @@ div2.style.width = '50px';
 div2.style.height = '50px';
 div2.style.background = 'red';
 button.onmouseover = () => {
-	document.body.appendChild(div2);
+	container.appendChild(div2);
 };
 button.onmouseout = () => {
 	div2.remove();
 };
-document.body.appendChild(button);
+container.appendChild(button);
 
 // task 7
+const container2 = document.createElement('div');
+document.body.appendChild(container2);
+
 const div3 = document.createElement('div');
 div3.style['margin-top'] = '30px';
 div3.style['margin-left'] = '100px';
@@ -89,12 +94,12 @@ const input = document.createElement('input');
 input.style['margin-top'] = '100px';
 input.style['margin-left'] = '100px';
 input.onfocus = () => {
-	document.body.appendChild(div3);
+	container2.appendChild(div3);
 };
 input.oninput = () => {
 	div3.remove();
 };
-document.body.appendChild(input);
+container2.appendChild(input);
 
 // task 8
 const input2 = document.createElement('input');
@@ -150,6 +155,7 @@ const lang = `language: ${navigator.language}`;
 let geoPosition =
 	'you need to allow browser to check your location <button onclick="getGeoPosition()">allow geolocation</button> <br/>';
 document.body.appendChild(coordinatesDiv);
+// getGeoPosition()
 
 document.onmousemove = (event) => {
 	const x = event.clientX;
@@ -228,9 +234,7 @@ scrollToTopBtn.style.right = '30px';
 scrollToTopBtn.style['z-index'] = 99;
 scrollToTopBtn.style['background-color'] = 'white';
 scrollToTopBtn.style.cursor = 'pointer';
-scrollToTopBtn.onclick = () => {
-	scrollToTop();
-};
+scrollToTopBtn.onclick = () => scrollToTop();
 document.body.appendChild(scrollToTopBtn);
 
 const scrollToTop = () => {
@@ -246,11 +250,68 @@ window.onscroll = function () {
 };
 
 function showScrollButton() {
-	if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+	if (document.body.scrollTop > 1400 || document.documentElement.scrollTop > 1400) {
 		scrollToTopBtn.style.display = 'block';
 	} else {
 		scrollToTopBtn.style.display = 'none';
 	}
 }
 
-//task 15
+// task 15
+const outerDiv = document.createElement('div');
+outerDiv.style.width = '100px';
+outerDiv.style.height = '100px';
+outerDiv.style['background-color'] = 'red';
+outerDiv.onclick = () => alert('outerDiv');
+
+const innerDiv = document.createElement('div');
+innerDiv.style.width = '50px';
+innerDiv.style.height = '50px';
+innerDiv.style['background-color'] = 'yellow';
+innerDiv.onclick = (e) => {
+	alert('innerDiv');
+	e.stopPropagation();
+};
+outerDiv.appendChild(innerDiv);
+
+document.body.appendChild(outerDiv);
+
+// task 16
+const container5 = document.createElement('div');
+container5.style['margin-top'] = '60px';
+document.body.appendChild(container5);
+
+const graySquare = document.createElement('div');
+graySquare.style['background-color'] = 'gray';
+graySquare.style.opacity = '0.5';
+graySquare.style.width = '100%';
+graySquare.style.height = `1000%`;
+graySquare.style.position = 'absolute';
+graySquare.style.top = 0;
+graySquare.style.left = 0;
+graySquare.onclick = (e) => {
+	graySquare.remove();
+	document.body.style.overflow = null;
+
+	e.stopPropagation();
+};
+
+const createGraySquare = document.createElement('button');
+createGraySquare.innerHTML = 'createGraySquare';
+container5.appendChild(createGraySquare);
+
+createGraySquare.onclick = (e) => {
+	document.body.appendChild(graySquare);
+
+	document.body.style.overflow = 'hidden';
+	document.querySelector('html').scrollTop = window.scrollY;
+};
+
+// task 17
+document.getElementById("myForm").addEventListener('submit', (e) => e.preventDefault());
+
+// task 18
+const container6 = document.createElement('div');
+container6.style['margin-top'] = '20px';
+document.body.appendChild(container6);
+
