@@ -5,8 +5,55 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>level2</title>
+		<style>
+			#drop-area {
+				border: 2px dashed #ccc;
+				border-radius: 20px;
+				width: 480px;
+				font-family: sans-serif;
+				margin: 100px auto;
+				padding: 20px;
+			}
+			#drop-area.highlight {
+				border-color: purple;
+				background-color: aqua;
+			}
+			#drop-area.dropped-file {
+				border-color: purple;
+				background-color: yellowgreen;
+			}
+			p {
+				margin-top: 0;
+			}
+			.my-form {
+				margin-bottom: 10px;
+			}
+			#gallery {
+				margin-top: 10px;
+			}
+			#gallery img {
+				width: 150px;
+				margin-bottom: 10px;
+				margin-right: 10px;
+				vertical-align: middle;
+			}
+			.button {
+				display: inline-block;
+				padding: 10px;
+				background: #ccc;
+				cursor: pointer;
+				border-radius: 5px;
+				border: 1px solid #ccc;
+			}
+			.button:hover {
+				background: #ddd;
+			}
+			#fileElem {
+				display: none;
+			}
+		</style>
 	</head>
-	<body style="height: 4000px;">	
+	<body style="height: 4000px">
 		<div style="display: flex">
 			<div id="1" class="div"></div>
 			<div id="2" class="div"></div>
@@ -24,9 +71,27 @@
 		<button onclick="inputHandler()">Show/Hide</button>
 		<br />
 		<br />
-		<form id="myForm"><input type="submit" value="GO"></form>
+		<form id="myForm"><input type="submit" value="GO" /></form>
+
+		<div id="drop-area" style="position: absolute; top: 1113px; left: 0">
+			<form class="my-form">
+				<p>
+					Upload multiple files with the file dialog or by dragging and dropping images
+					onto the dashed region
+				</p>
+				<input
+					type="file"
+					id="fileElem"
+					multiple
+					accept="image/*"
+					onchange="handleFiles(this.files)"
+				/>
+				<label class="button" for="fileElem">Select some files</label>
+			</form>
+			<div id="gallery"></div>
+		</div>
 	</body>
-	
-	<!-- <script src="task1.js"></script> -->
-	<script src="task2.js"></script>
+
+	<script src="task1.js"></script>
+	<!-- <script src="task2.js"></script> -->
 </html>

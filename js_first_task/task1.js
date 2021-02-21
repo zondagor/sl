@@ -155,7 +155,7 @@ const lang = `language: ${navigator.language}`;
 let geoPosition =
 	'you need to allow browser to check your location <button onclick="getGeoPosition()">allow geolocation</button> <br/>';
 document.body.appendChild(coordinatesDiv);
-// getGeoPosition()
+getGeoPosition()
 
 document.onmousemove = (event) => {
 	const x = event.clientX;
@@ -308,10 +308,63 @@ createGraySquare.onclick = (e) => {
 };
 
 // task 17
-document.getElementById("myForm").addEventListener('submit', (e) => e.preventDefault());
+document.getElementById('myForm').addEventListener('submit', (e) => e.preventDefault());
 
 // task 18
-const container6 = document.createElement('div');
-container6.style['margin-top'] = '20px';
-document.body.appendChild(container6);
+const dropArea = document.getElementById('drop-area');
 
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach((eventName) => {
+	dropArea.addEventListener(eventName, preventDefaults, false);
+});
+
+function preventDefaults(e) {
+	e.preventDefault();
+	e.stopPropagation();
+}
+
+['dragenter', 'dragover'].forEach((eventName) => {
+	dropArea.addEventListener(eventName, highlight, false);
+});
+
+['dragleave', 'drop'].forEach((eventName) => {
+	dropArea.addEventListener(eventName, unhighlight, false);
+});
+
+function highlight(e) {
+	dropArea.classList.add('highlight');
+}
+
+function unhighlight(e) {
+	dropArea.classList.remove('highlight');
+}
+
+dropArea.addEventListener('drop', handleDrop, false);
+
+function handleDrop(e) {
+	let dt = e.dataTransfer;
+	let files = dt.files;
+
+	handleFiles(files);
+
+	dropArea.classList.add('dropped-file');
+}
+
+function handleFiles(files) {
+	files = [...files];
+	files.forEach(uploadFile);
+	files.forEach(previewFile);
+}
+
+function uploadFile(file) {
+	console.log(file);
+}
+
+function previewFile(file) {
+	let reader = new FileReader();
+	reader.readAsDataURL(file);
+	reader.onloadend = function () {
+		let img = document.createElement('img');
+		img.src = reader.result;
+		document.getElementById('gallery').appendChild(img);
+	};
+}
