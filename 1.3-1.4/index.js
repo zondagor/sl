@@ -4,6 +4,7 @@ async function DataTable(config, data) {
 	if (!dataArr) {
 		let res = await fetch(config.apiUrl);
 		res = await res.json();
+		// console.log(res); todo delete here
 		const arrOfObjects = [];
 
 		for (user in res.data) {
@@ -22,7 +23,7 @@ async function DataTable(config, data) {
 	const columnNames = [];
 
 	const addEntityBtn = document.createElement('button');
-	addEntityBtn.innerHTML = 'add new'
+	addEntityBtn.innerHTML = 'add new';
 
 	divContainer.appendChild(addEntityBtn);
 
@@ -48,7 +49,7 @@ async function DataTable(config, data) {
 	// table body
 	const tableBody = document.createElement('tbody');
 	table.appendChild(tableBody);
-	
+	// row with inputs for adding new user
 	const rowWithInputs = document.createElement('tr');
 	const arrWithInputs = [];
 	// rowWithInputs.style.display = 'none';
@@ -56,21 +57,25 @@ async function DataTable(config, data) {
 	for (columnName of columnNames) {
 		const tableData = document.createElement('td');
 		const input = document.createElement('input');
-		// input.addEventListener("focus", () => {input.style.border = "2px solid red"})
-		input.addEventListener("keydown", (e) => {
-			if (e.key === "Enter"){
+		if (columnName === 'birthday') {
+			input.type = 'date';
+		}
+		input.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter') {
 				let allFieldsAreFilled = true;
 				for (let i = 0; i < arrWithInputs.length; i++) {
-					const inputEl = arrWithInputs[i];
+					const inputEl = arrWithInputs[i].input;
 					if (inputEl.value === '') {
 						allFieldsAreFilled = false;
-						inputEl.style.border = "2px solid red"
+						inputEl.style.border = '2px solid red';
 					}
 				}
-				
+				if (allFieldsAreFilled === true) {
+					addNewUser(config, arrWithInputs);
+				}
 			}
-		})
-		arrWithInputs.push(input);
+		});
+		arrWithInputs.push({ columnName: columnName, input });
 		tableData.appendChild(input);
 		rowWithInputs.appendChild(tableData);
 	}
@@ -119,8 +124,10 @@ const config2 = {
 		{ title: 'Имя', value: 'name' },
 		{ title: 'Фамилия', value: 'surname' },
 		{ title: 'ДР=))', value: 'birthday' },
+		{ title: 'Ава', value: 'avatar' },
 	],
 	apiUrl: 'http://mock-api.shpp.me/sdebryniuk/users',
+	// apiUrl: 'https://mock-api.shpp.me/asadov/users',
 };
 
 function deleteTableEntity(dataArr, i) {
@@ -131,6 +138,27 @@ function deleteTableEntity(dataArr, i) {
 		.then((res) => {
 			document.querySelector('table').remove();
 			DataTable(config2);
+		});
+}
+
+function addNewUser(config, arrWithInputs) {
+	const payload = {};
+	for (const inputObj of arrWithInputs) {
+		payload[inputObj.columnName] = inputObj.input.value;
+	}
+
+	fetch(config.apiUrl, {
+		method: 'post',
+		body: JSON.stringify(payload),
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	})
+		.then(function (response) {
+			return response.json();
+		})
+		.then(function (data) {
+			console.log(data);
 		});
 }
 
